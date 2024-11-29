@@ -1,0 +1,39 @@
+{% for post in posts %}
+
+<section class="flex gap-md">
+  <span title="Total Likes" data-post-stats-likes="{{ post.likes }}" class="flex-center">
+    <img class="simple-icon" src="static/icons/heart.svg" alt="heart icon" />
+    {{ post.likes }}
+  </span>
+
+  <span title="Replies to your post" data-post-stats-replies="{{ post.replies }}" class="flex-center">
+    <img class="simple-icon" src="static/icons/comment.svg" alt="comment bubble icon" />
+    {{ post.replies }}
+  </span>
+
+  <span title="# of reposts" data-post-stats-reposts="{{ post.reposts }}" class="flex-center">
+    <img class="simple-icon" src="static/icons/refresh-cw.svg" alt="refresh icon" />
+    {{ post.reposts }}
+  </span>
+
+  <span title="# of quotes" data-post-stats-quotes="{{ post.quotes }}" class="flex-center">
+    <img class="simple-icon" src="static/icons/comment-text.svg" alt="comment with writing in it message bubble icon" />
+    {{ post.quotes }}
+  </span>
+
+  <span title="Character count of the post content" data-post-stats-characters="{{ post.characters }}" class="flex-center">
+    <img class="simple-icon" src="static/icons/pencil-create.svg" alt="pencil icon" />
+    {{ post.characters }}
+  </span>
+</section>
+
+<p>
+
+<section>
+<p>{{ post.text }}</p>
+  <time datetime="{{ post.time }}">{{ post.time }}</time>
+</section>
+
+<p>
+<hr>
+{% endfor %}
