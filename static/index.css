@@ -121,10 +121,12 @@ main {
     display: grid;
     grid-template-columns: min-content min-content;
     gap: 1rem;
+    padding-bottom: 1rem;
 }
 
 .tiny-text {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    color: #888;
 }
 
 .no-line-height {
