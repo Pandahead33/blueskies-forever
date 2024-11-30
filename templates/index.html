@@ -12,39 +12,50 @@
 <body>
 <main>
     <h1>Interweave <span class="sub-heading">Blueskies Forever</span></h1>
-    <form class="config" data-hx-post="/stats" data-hx-target="#post-stats" data-hx-indicator=".indicator" data-hx-trigger="load">
+    <form class="config"
+          data-hx-post="/stats"
+          data-hx-target="#post-stats"
+          data-hx-indicator="#indicator"
+          data-hx-trigger="submit">
+
         <div class="user-info">
             <div>
                 <label for="username"><p class="no-line-height">Username</p></label>
-                <input type="text" id="username" name="username"
-                       placeholder="you.bsky.social">
+                <input type="text" id="username" name="username" placeholder="you.bsky.social" required>
             </div>
             <div>
                 <label for="password"><p class="no-line-height">Password</p></label>
-                <input type="password" id="password" name="password" data-hx-post="/stats" data-hx-target="#post-stats"
-                       data-hx-indicator=".indicator" data-hx-trigger="keyup changed delay:500ms">
+                <input type="password" id="password" name="password" required>
                 <p class="tiny-text no-line-height">We never store your password.</p>
             </div>
         </div>
 
-        <input type="submit" hx-prompt="test?"></input>
+        <button type="submit" class="stats-button">Grab Stats <img id="indicator" class="htmx-indicator" src="static/icons/loading.gif" width="16px"/></button>
 
         <div>
             <label for="sort">Sort posts by</label>
             <select id="sort" name="sort" data-hx-post="/stats" data-hx-target="#post-stats"
                     data-hx-indicator="#indicator" data-hx-trigger="change">
-                <option value="time">time</option>
-                <option value="likes">likes</option>
-                <option value="replies">replies</option>
-                <option value="reposts">reposts</option>
-                <option value="quotes">quotes</option>
-                <option value="characters">characters</option>
+                <option value="time">Time</option>
+                <option value="likes">Likes</option>
+                <option value="replies">Replies</option>
+                <option value="reposts">Reposts</option>
+                <option value="quotes">Quotes</option>
+                <option value="characters">Characters</option>
             </select>
         </div>
     </form>
 
     <div id="post-stats">
-        <img class="indicator" src="static/icons/loading.gif" width="32px"/>
+        <div class="post-skeleton">
+            <div class="metrics"></div>
+            <div class="content"></div>
+        </div>
+        <hr class="padded-hr">
+        <div class="post-skeleton">
+            <div class="metrics"></div>
+            <div class="content"></div>
+        </div>
     </div>
 </main>
 </body>

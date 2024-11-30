@@ -119,7 +119,7 @@ main {
 
 .user-info {
     display: grid;
-    grid-template-columns: min-content min-content;
+    grid-template-columns: min-content 1fr;
     gap: 1rem;
     padding-bottom: 1rem;
 }
@@ -135,4 +135,54 @@ main {
 
 .small-pb {
     padding-bottom: 1rem;
+}
+
+.stats-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  padding: 0.25rem 1rem;
+  margin-bottom: 2rem;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.htmx-indicator {
+    display:none;
+}
+.htmx-request .htmx-indicator {
+    display:inline;
+}
+.htmx-request.htmx-indicator {
+    display:inline;
+}
+
+.post-skeleton .metrics {
+  background-color: #DDD;
+  height: 2rem;
+  max-width: 320px;
+  padding-bottom: 1rem;
+  margin-top: 14px;
+}
+
+.post-skeleton .content {
+  background-color: #DDD;
+  height: 6rem;
+  max-width: 100%;
+  margin-top: 35px;
+  display: block;
+  padding: 20px;
+}
+
+hr {
+    border-top: 1px solid #DDD;
+    margin: 3rem 0;
+}
+
+.ad {
+    font-size: 1.2rem;
+    font-weight: 700;
 }
