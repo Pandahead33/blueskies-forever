@@ -16,7 +16,7 @@
     <form class="config"
           data-hx-post="/stats"
           data-hx-target="#post-stats"
-          data-hx-indicator="#indicator"
+          data-hx-indicator=".indicator"
           data-hx-trigger="submit">
 
         <div class="user-info">
@@ -31,12 +31,17 @@
             </div>
         </div>
 
-        <button type="submit" class="stats-button">Grab Stats <img id="indicator" class="htmx-indicator" src="static/icons/loading.gif" width="16px"/></button>
+        <button type="submit" class="stats-button"><span>Grab<span
+                class="indicator htmx-indicator">bing</span> Stats</span> <img id="indicator"
+                                                                               class="indicator htmx-indicator"
+                                                                               src="static/icons/loading.gif"
+                                                                               width="16px"/>
+        </button>
 
         <div>
             <label for="sort">Sort posts by</label>
             <select id="sort" name="sort" data-hx-post="/stats" data-hx-target="#post-stats"
-                    data-hx-indicator="#indicator" data-hx-trigger="change">
+                    data-hx-indicator=".indicator" data-hx-trigger="change">
                 <option value="time">Time</option>
                 <option value="likes">Likes</option>
                 <option value="replies">Replies</option>
@@ -47,7 +52,7 @@
         </div>
     </form>
 
-    <div id="post-stats">
+    <div class="indicator htmx-indicator">
         <div class="post-skeleton">
             <div class="metrics"></div>
             <div class="content"></div>
@@ -56,6 +61,16 @@
         <div class="post-skeleton">
             <div class="metrics"></div>
             <div class="content"></div>
+        </div>
+        <hr>
+    </div>
+
+    <div id="post-stats">
+        <div class="post-empty-state"><p>To get your stats:</p>
+            <ol>
+                <li>Put in your username and password</li>
+                <li>Hit "Grab Stats"!</li>
+            </ol>
         </div>
     </div>
 </main>
