@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -9,13 +8,11 @@ from aiocache import Cache, cached
 from aiocache.serializers import PickleSerializer
 
 import dateutil.parser
+from pydantic import BaseModel
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-username = '<username>'
-password = '<password>'
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -23,9 +20,21 @@ async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.get("/stats", response_class=HTMLResponse)
+class UsernamePassword(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/stats", response_class=HTMLResponse)
 async def get_stats(request: Request):
-    data: Response = await get_bluesky_users_posts()
+    form_data = await request.form()
+    username = form_data.get("username")
+    password = form_data.get("password")
+    sort = form_data.get("sort")
+
+    data: Response = await get_bluesky_users_posts(username, password)
+
+    password = None
 
     feed = data.feed
     posts_data = []
@@ -49,8 +58,6 @@ async def get_stats(request: Request):
 
         posts_data.append(post_info)
 
-    sort = request.query_params.get("sort")
-
     if sort:
         posts_data.sort(key=lambda x: x[sort], reverse=True)
 
@@ -59,7 +66,7 @@ async def get_stats(request: Request):
 
 @cached(
     ttl=30, cache=Cache.MEMORY, key="bluesky_posts", serializer=PickleSerializer())
-async def get_bluesky_users_posts() -> Response:
+async def get_bluesky_users_posts(username: str, password: str) -> Response:
     client = Client()
     client_response = client.login(username, password)
 

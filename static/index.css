@@ -98,8 +98,7 @@ main {
 }
 
 .button-container-label {
-    line-height: 1;
-    padding-bottom: 0.5rem;
+    line-height: 0;
 }
 
 .button-container {
@@ -112,4 +111,26 @@ main {
 
 .sub-heading {
     font-size: 1.3rem;
+}
+
+.config {
+    padding-bottom: 1rem;
+}
+
+.user-info {
+    display: grid;
+    grid-template-columns: min-content min-content;
+    gap: 1rem;
+}
+
+.tiny-text {
+    font-size: 0.8rem;
+}
+
+.no-line-height {
+    line-height: 0;
+}
+
+.small-pb {
+    padding-bottom: 1rem;
 }

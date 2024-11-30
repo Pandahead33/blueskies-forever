@@ -3,41 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Interweave Blueskies Forever</title>
-    <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.3"
+            integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/index.css">
     <link rel="icon" href="static/icons/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <main>
-        <h1>Interweave <span class="sub-heading">Blueskies Forever</span></h1>
-        <p class="button-container-label">Sort posts by...</p>
-        <div class="button-container">
-            <button hx-target="#post-stats" hx-get="/stats?sort=time">
-                <img class="simple-icon" src="static/icons/time.svg" alt="clock icon" />
-                <p>Time</p>
-            </button>
-            <button hx-target="#post-stats" hx-get="/stats?sort=likes">
-                <img class="simple-icon" src="static/icons/heart.svg" alt="heart icon" />
-                <p>Likes</p>
-            </button>
-            <button hx-target="#post-stats" hx-get="/stats?sort=replies">
-                <img class="simple-icon" src="static/icons/comment.svg" alt="comment bubble icon" />
-                <p>Replies</p>
-            </button>
-            <button hx-target="#post-stats" hx-get="/stats?sort=reposts">
-                <img class="simple-icon" src="static/icons/refresh-cw.svg" alt="refresh icon" />
-                <p>Reposts</p>
-            </button>
-            <button hx-target="#post-stats" hx-get="/stats?sort=quotes">
-                <img class="simple-icon" src="static/icons/comment-text.svg" alt="comment with writing in it message bubble icon" />
-                <p>Quotes</p>
-            </button>
-            <button hx-target="#post-stats" hx-get="/stats?sort=characters">
-                <img class="simple-icon" src="static/icons/pencil-create.svg" alt="pencil icon" />
-                <p>Characters</p>
-            </button>
+<main>
+    <h1>Interweave <span class="sub-heading">Blueskies Forever</span></h1>
+    <form class="config" data-hx-post="/stats" data-hx-target="#post-stats" data-hx-indicator=".indicator" data-hx-trigger="load">
+        <div class="user-info">
+            <div>
+                <label for="username"><p class="no-line-height">Username</p></label>
+                <input type="text" id="username" name="username"
+                       placeholder="you.bsky.social">
+            </div>
+            <div>
+                <label for="password"><p class="no-line-height">Password</p></label>
+                <input type="password" id="password" name="password" data-hx-post="/stats" data-hx-target="#post-stats"
+                       data-hx-indicator=".indicator" data-hx-trigger="keyup changed delay:500ms">
+            </div>
         </div>
-        <div id="post-stats" hx-trigger="load, every " hx-get="/stats">Post stats will appear here</div>
-    </main>
+        <p class="tiny-text no-line-height small-pb">We never store your password.</p>
+
+        <input type="submit" hx-prompt="test?"></input>
+
+        <div>
+            <label for="sort">Sort posts by</label>
+            <select id="sort" name="sort" data-hx-post="/stats" data-hx-target="#post-stats"
+                    data-hx-indicator="#indicator" data-hx-trigger="change">
+                <option value="time">time</option>
+                <option value="likes">likes</option>
+                <option value="replies">replies</option>
+                <option value="reposts">reposts</option>
+                <option value="quotes">quotes</option>
+                <option value="characters">characters</option>
+            </select>
+        </div>
+    </form>
+
+    <div id="post-stats">
+        <img class="indicator" src="static/icons/loading.gif" width="32px"/>
+    </div>
+</main>
 </body>
 </html>
