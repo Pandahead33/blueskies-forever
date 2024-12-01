@@ -53,7 +53,8 @@ async def get_stats(request: Request):
             "quotes": post.quote_count,
             "text": post.record.text,
             "characters": len(post.record.text),
-            "time": format_datetime(post.record.created_at)
+            "time": format_datetime(post.record.created_at),
+            "images": extract_image_urls(post)
         }
 
         posts_data.append(post_info)
@@ -84,3 +85,10 @@ def format_datetime(date_string: str):
     formatted_datetime = datetime_object.strftime("%B %d, %Y at %I:%M %p")
 
     return formatted_datetime
+
+
+def extract_image_urls(post):
+    try:
+        return [image.thumb for image in post.embed.images]
+    except AttributeError:
+        return []

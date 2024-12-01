@@ -34,6 +34,15 @@
   <time datetime="{{ post.time }}">{{ post.time }}</time>
 </section>
 
+{% if post.images %}
+<details>
+  <summary>Images</summary>
+  {% for image in post.images %}
+  <img src="{{image}}">
+  {% endfor %}
+</details>
+{% endif %}
+
 <p>
 <hr>
 {% endfor %}
