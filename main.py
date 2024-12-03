@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Request
+from typing import Annotated
+
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -23,15 +25,11 @@ async def root(request: Request):
 class UsernamePassword(BaseModel):
     username: str
     password: str
+    sort: str
 
 
 @app.post("/stats", response_class=HTMLResponse)
-async def get_stats(request: Request):
-    form_data = await request.form()
-    username = form_data.get("username")
-    password = form_data.get("password")
-    sort = form_data.get("sort")
-
+async def get_stats(request: Request, username: Annotated[str, Form()], password: Annotated[str, Form()], sort: Annotated[str, Form()]):
     data: Response = await get_bluesky_users_posts(username, password)
 
     password = None
