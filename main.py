@@ -10,7 +10,6 @@ from aiocache import Cache, cached
 from aiocache.serializers import PickleSerializer
 
 import dateutil.parser
-from pydantic import BaseModel
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
