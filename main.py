@@ -1,4 +1,4 @@
-from typing import Annotated
+from enum import Enum
 
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
@@ -22,14 +22,18 @@ async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-class UsernamePassword(BaseModel):
-    username: str
-    password: str
-    sort: str
+class Sort(str, Enum):
+    time = "time"
+    likes = "likes"
+    replies = "replies"
+    reposts = "reposts"
+    quotes = "quotes"
+    characters = "characters"
 
 
 @app.post("/stats", response_class=HTMLResponse)
-async def get_stats(request: Request, username: Annotated[str, Form()], password: Annotated[str, Form()], sort: Annotated[str, Form()]):
+async def get_stats(request: Request, username: str = Form(), password: str = Form(),
+                    sort: Sort = Form()):
     data: Response = await get_bluesky_users_posts(username, password)
 
     password = None
@@ -57,8 +61,7 @@ async def get_stats(request: Request, username: Annotated[str, Form()], password
 
         posts_data.append(post_info)
 
-    if sort:
-        posts_data.sort(key=lambda x: x[sort], reverse=True)
+    posts_data.sort(key=lambda x: x[sort], reverse=True)
 
     return templates.TemplateResponse("post-list.html", {"request": request, "posts": posts_data})
 
